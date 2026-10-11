@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="theme-color" content="#061327"/>
+<title>태성고 AR 링 · 카메라 체험</title>
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js"></script>
+<script src="./ar.js"></script>
+<style>
+*{box-sizing:border-box}html,body{padding:0;margin:0;height:100%;overflow:hidden;background:transparent;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}
+#hud{position:fixed;top:0;left:0;right:0;z-index:99999;padding:calc(12px + env(safe-area-inset-top)) 16px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,12,28,.91),rgba(3,13,28,.65) 72%,transparent);pointer-events:none}
+#hud>*{pointer-events:auto}a.back{font-size:13px;font-weight:800;text-decoration:none;color:#e8f5ff;border:1px solid #43648b;border-radius:25px;padding:10px 13px;background:#102a4b}
+#hud .brand{font-size:14px;font-weight:800;letter-spacing:.03em}#infoBtn{color:#fff;background:#0b305a;border:1px solid #487cb9;border-radius:30px;padding:9px 13px;font-weight:700}
+#statusBar{position:fixed;bottom:calc(26px + env(safe-area-inset-bottom));left:12px;right:12px;z-index:99999;text-align:center;pointer-events:none}
+#statusBar .pill{display:inline-block;border:1px solid rgba(120,175,238,.40);background:rgba(6,22,42,.89);border-radius:40px;max-width:98%;padding:13px 17px;font-weight:700;font-size:13px;line-height:1.45}
+#statusBar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffb547;margin-right:6px}body.tracked #statusBar .dot{background:#4bd99f}
+#tips{display:none;position:fixed;left:12px;right:12px;top:calc(78px + env(safe-area-inset-top));z-index:99999;background:#092849ef;border:1px solid #416c9c;border-radius:18px;padding:16px;line-height:1.8;font-size:13px}
+#tips.show{display:block}#tips img{float:right;width:86px;margin:0 0 10px 10px;border-radius:6px}
+/* FIX v0.4: AR.js places its camera <video> behind the page by default.
+   The opaque navy body background previously hid the live camera feed. */
+html{background:#000!important}
+body{background:transparent!important}
+/* Keep camera video visible below the transparent WebGL canvas. */
+video#arjs-video,video.arjs-video,body>video{z-index:0!important;visibility:visible!important;opacity:1!important}
+a-scene{position:fixed !important;inset:0;z-index:1!important;background:transparent!important}
+a-scene canvas.a-canvas{background:transparent!important}
+.a-enter-vr,.a-enter-ar{display:none!important}
+
+/* v0.5: camera preview is explicitly layered behind transparent A-Frame WebGL.
+   This fixes devices which place AR.js's own video behind an opaque page. */
+html, body { background:#000 !important; }
+#cameraPreview {
+  position:fixed !important; inset:0 !important; width:100vw !important; height:100dvh !important;
+  object-fit:cover; background:#000; z-index:0 !important; pointer-events:none;
+  display:block !important; opacity:1 !important; transform:translateZ(0);
+}
+/* Fall back to the AR.js-owned video until our mirrored preview is playing. */
+video#arjs-video,video.arjs-video{z-index:0!important;visibility:visible!important;}
+body.preview-ready video#arjs-video,body.preview-ready video.arjs-video{opacity:0!important;pointer-events:none!important;}
+a-scene { z-index:1 !important; background:transparent !important; }
+a-scene canvas.a-canvas {background:transparent!important;opacity:1!important;}
+#cameraDiag{display:none;position:fixed;top:calc(77px + env(safe-area-inset-top));left:12px;right:12px;z-index:999999;
+  border:1px solid #62a3ea;border-radius:16px;background:rgba(3,20,40,.95);color:#e8f4ff;padding:13px;
+  font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;}
+#cameraDiag.open{display:block}
+#diagBtn{color:#fff;background:#143957;border:1px solid #487cb9;border-radius:30px;padding:9px 10px;font-weight:700;font-size:12px}
+
+</style>
+</head>
+<body>
+<div id="hud"><a class="back" href="./index.html">← 안내</a><div class="brand">TAESUNG · AR RING</div><div style="display:flex;gap:6px"><button id="diagBtn" type="button">📷 진단</button><button id="infoBtn" type="button">사용 방법</button></div></div>
+<div id="tips"><img src="./assets/taesung-marker.png" alt="태성 로고 마커"/><strong>인식이 잘 안 된다면</strong><div>① 조명 밝은 곳에서 흰색 여백과 검정 테두리 전체가 보이게 촬영<br>② 먼저 출력한 80mm 카드로 시험<br>③ 15–25cm 간격에서 천천히 움직이기<br>④ 카메라를 가린 손가락을 치우기<br>⑤ 브라우저 카메라 권한 허용</div></div>
+<div id="statusBar"><span class="pill"><span class="dot"></span><span id="state">AR 엔진 시작 중…</span></span></div>
+<video id="cameraPreview" autoplay muted playsinline webkit-playsinline disablepictureinpicture aria-hidden="true"></video>
+<div id="cameraDiag" aria-live="polite">카메라 진단 준비 중…</div>
+<a-scene embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" renderer="alpha: true; antialias: true; colorManagement: true; precision: medium" arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: color_and_matrix; patternRatio: 0.60; maxDetectionRate: 30;" loading-screen="enabled:false">
+  <a-marker id="ringMarker" type="pattern" url="./assets/taesung.patt" emitevents="true" smooth="true" smoothCount="6" smoothTolerance="0.02" smoothThreshold="3">
+    <a-entity id="billboard" position="0 0 0" ar-billboard>
+      <a-entity id="logo" position="0 .82 0" logo-geometry ar-logo-animation></a-entity>
+    </a-entity>
+    <a-torus position="0 0.05 0" rotation="90 0 0" radius="0.64" radius-tubular="0.016" material="color:#48a6ed; emissive:#1769b5; emissiveIntensity:0.8; transparent:true; opacity:0.9" animation="property: rotation; to:90 0 360; dur:11000; loop:true; easing:linear"></a-torus>
+  </a-marker>
+  <a-entity camera></a-entity>
+</a-scene>
+
+<script>
+/* v0.5 Samsung Internet / Chrome camera compositor fallback.
+   Reuses the SAME MediaStream acquired by AR.js; no second camera request. */
+(function(){
+  'use strict';
+  const diag = () => document.getElementById('cameraDiag');
+  const state = () => document.getElementById('state');
+  let preview, sourceVideo, connecting = false, lastError = '', attachedStream = null, started = Date.now();
+  const setInfo = (msg) => { if (state()) state().textContent = msg; };
+  function findARSource(){
+    const direct = document.getElementById('arjs-video');
+    if (direct && direct.tagName === 'VIDEO') return direct;
+    return Array.from(document.querySelectorAll('video')).find(v => v !== preview &&
+      (v.srcObject || v.readyState >= 1 || v.currentSrc)) || null;
+  }
+  function forceTransparency(){
+    const scene = document.querySelector('a-scene');
+    if (!scene) return;
+    if (scene.renderer) {
+      try {
+        scene.renderer.setClearColor(0x000000, 0);
+        scene.renderer.setClearAlpha(0);
+        if(scene.object3D) scene.object3D.background = null;
+      } catch(err) { lastError='WebGL alpha: '+err.message; }
+    }
+    if(scene.canvas){
+      scene.canvas.style.backgroundColor='transparent';
+      scene.canvas.style.backgroundImage='none';
+    }
+  }
+  async function attachExistingStream(){
+    if (connecting || !preview) return;
+    const candidate=findARSource();
+    if (!candidate) return;
+    sourceVideo=candidate;
+    // AR.js may assign MediaStream asynchronously, even after scene.loaded.
+    const stream=candidate.srcObject;
+    if(stream && typeof stream.getVideoTracks==='function'){
+      if(attachedStream===stream) return;
+      connecting=true;
+      try{
+        preview.srcObject=stream;
+        attachedStream=stream;
+        await preview.play();
+      }catch(err){lastError='미리보기 재생: '+err.name+' '+err.message;}
+      finally { connecting=false; }
+    }else if(candidate.currentSrc && !preview.src && !preview.srcObject){
+      // Fallback for versions using a blob/video URL instead of srcObject.
+      preview.src=candidate.currentSrc;
+      preview.play().catch(e=>{lastError='영상 URL 재생: '+e.message;});
+    }
+  }
+  function videoStats(video){
+    if(!video) return '발견 안 됨';
+    let tracks = '';
+    try {tracks = video.srcObject && video.srcObject.getVideoTracks ?
+      video.srcObject.getVideoTracks().map(t=>t.readyState+(t.enabled?'(on)':'(off)')).join(',') : 'no stream';}
+    catch(err){ tracks = err.message; }
+    return `${video.videoWidth}x${video.videoHeight}, readyState=${video.readyState}, paused=${video.paused}, stream=${tracks}`;
+  }
+  function report(){
+    if(!preview) return;
+    const good = preview.readyState>=2 && preview.videoWidth>0 && !preview.paused;
+    document.body.classList.toggle('preview-ready',good);
+    const d=diag();
+    if(d){
+      const scene=document.querySelector('a-scene');
+      let alpha='unknown';
+      try {alpha=scene?.renderer?.getContext()?.getContextAttributes()?.alpha;}catch(e){}
+      d.textContent='카메라 영상 점검 (v0.5)\n'+
+        'AR.js 카메라: '+videoStats(sourceVideo)+'\n'+
+        '미리보기 영상: '+videoStats(preview)+'\n'+
+        'WebGL 투명도: '+alpha+'\n'+
+        '영상 표시: '+(good?'정상 ✓':'준비 중 / 재생 실패')+'\n'+
+        (lastError ? '오류: '+lastError+'\n':'')+
+        '안 보인다면 화면 캡처를 보내주세요.\n'+
+        '독립 카메라 점검: ./camera-check.html';
+    }
+    // Do not display a false success message just because camera permission was granted.
+    if(!good && Date.now()-started>7500 && !document.body.classList.contains('tracked')) {
+      setInfo('카메라 영상 준비 지연 · 상단 📷 진단을 눌러 확인하세요');
+    }else if(good && !document.body.classList.contains('tracked') &&
+      /시작 중|준비 지연|카메라를 허용/.test(state()?.textContent||'')){
+      setInfo('카메라 영상 정상 · 반지의 정사각형 마커를 비춰주세요');
+    }
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    preview=document.getElementById('cameraPreview');
+    document.getElementById('diagBtn')?.addEventListener('click',()=>{
+      diag()?.classList.toggle('open');report();
+    });
+    preview?.addEventListener('playing',report);
+    preview?.addEventListener('loadedmetadata',report);
+    preview?.addEventListener('error',()=>{lastError='video error '+(preview.error?.message||'');report();});
+    const scene=document.querySelector('a-scene');
+    scene?.addEventListener('renderstart',forceTransparency);
+    scene?.addEventListener('loaded',forceTransparency);
+    // Polling also catches AR.js injecting camera DOM nodes after loaded/renderstart.
+    setInterval(()=>{forceTransparency();attachExistingStream();report();},650);
+    forceTransparency();attachExistingStream();report();
+  });
+})();
+</script>
+
+</body>
+</html>
