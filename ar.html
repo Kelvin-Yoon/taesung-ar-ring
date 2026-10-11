@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="theme-color" content="#061327"/>
+<title>태성고 AR 링 · 카메라 체험</title>
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js"></script>
+<script src="./ar.js"></script>
+<style>
+*{box-sizing:border-box}html,body{padding:0;margin:0;height:100%;overflow:hidden;background:#061327;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}
+#hud{position:fixed;top:0;left:0;right:0;z-index:99999;padding:calc(12px + env(safe-area-inset-top)) 16px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,12,28,.91),rgba(3,13,28,.65) 72%,transparent);pointer-events:none}
+#hud>*{pointer-events:auto}a.back{font-size:13px;font-weight:800;text-decoration:none;color:#e8f5ff;border:1px solid #43648b;border-radius:25px;padding:10px 13px;background:#102a4b}
+#hud .brand{font-size:14px;font-weight:800;letter-spacing:.03em}#infoBtn{color:#fff;background:#0b305a;border:1px solid #487cb9;border-radius:30px;padding:9px 13px;font-weight:700}
+#statusBar{position:fixed;bottom:calc(26px + env(safe-area-inset-bottom));left:12px;right:12px;z-index:99999;text-align:center;pointer-events:none}
+#statusBar .pill{display:inline-block;border:1px solid rgba(120,175,238,.40);background:rgba(6,22,42,.89);border-radius:40px;max-width:98%;padding:13px 17px;font-weight:700;font-size:13px;line-height:1.45}
+#statusBar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffb547;margin-right:6px}body.tracked #statusBar .dot{background:#4bd99f}
+#tips{display:none;position:fixed;left:12px;right:12px;top:calc(78px + env(safe-area-inset-top));z-index:99999;background:#092849ef;border:1px solid #416c9c;border-radius:18px;padding:16px;line-height:1.8;font-size:13px}
+#tips.show{display:block}#tips img{float:right;width:86px;margin:0 0 10px 10px;border-radius:6px}
+a-scene{position:fixed !important;inset:0;z-index:1}
+.a-enter-vr,.a-enter-ar{display:none!important}
+</style>
+</head>
+<body>
+<div id="hud"><a class="back" href="./index.html">← 안내</a><div class="brand">TAESUNG · AR RING</div><button id="infoBtn" type="button">사용 방법</button></div>
+<div id="tips"><img src="./assets/taesung-marker.png" alt="태성 로고 마커"/><strong>인식이 잘 안 된다면</strong><div>① 조명 밝은 곳에서 흰색 여백과 검정 테두리 전체가 보이게 촬영<br>② 먼저 출력한 80mm 카드로 시험<br>③ 15–25cm 간격에서 천천히 움직이기<br>④ 카메라를 가린 손가락을 치우기<br>⑤ 브라우저 카메라 권한 허용</div></div>
+<div id="statusBar"><span class="pill"><span class="dot"></span><span id="state">AR 엔진 시작 중…</span></span></div>
+<a-scene embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" renderer="alpha: true; antialias: true; colorManagement: true; precision: medium" arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: color_and_matrix; patternRatio: 0.60; maxDetectionRate: 30;" loading-screen="enabled:false">
+  <a-marker id="ringMarker" type="pattern" url="./assets/taesung.patt" emitevents="true" smooth="true" smoothCount="6" smoothTolerance="0.02" smoothThreshold="3">
+    <a-entity id="billboard" position="0 0 0" ar-billboard>
+      <a-entity id="logo" position="0 .82 0" logo-geometry ar-logo-animation></a-entity>
+    </a-entity>
+    <a-torus position="0 0.05 0" rotation="90 0 0" radius="0.64" radius-tubular="0.016" material="color:#48a6ed; emissive:#1769b5; emissiveIntensity:0.8; transparent:true; opacity:0.9" animation="property: rotation; to:90 0 360; dur:11000; loop:true; easing:linear"></a-torus>
+  </a-marker>
+  <a-entity camera></a-entity>
+</a-scene>
+</body>
+</html>
