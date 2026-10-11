@@ -9,7 +9,7 @@
 <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js"></script>
 <script src="./ar.js"></script>
 <style>
-*{box-sizing:border-box}html,body{padding:0;margin:0;height:100%;overflow:hidden;background:#061327;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}
+*{box-sizing:border-box}html,body{padding:0;margin:0;height:100%;overflow:hidden;background:transparent;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}
 #hud{position:fixed;top:0;left:0;right:0;z-index:99999;padding:calc(12px + env(safe-area-inset-top)) 16px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,12,28,.91),rgba(3,13,28,.65) 72%,transparent);pointer-events:none}
 #hud>*{pointer-events:auto}a.back{font-size:13px;font-weight:800;text-decoration:none;color:#e8f5ff;border:1px solid #43648b;border-radius:25px;padding:10px 13px;background:#102a4b}
 #hud .brand{font-size:14px;font-weight:800;letter-spacing:.03em}#infoBtn{color:#fff;background:#0b305a;border:1px solid #487cb9;border-radius:30px;padding:9px 13px;font-weight:700}
@@ -18,7 +18,14 @@
 #statusBar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffb547;margin-right:6px}body.tracked #statusBar .dot{background:#4bd99f}
 #tips{display:none;position:fixed;left:12px;right:12px;top:calc(78px + env(safe-area-inset-top));z-index:99999;background:#092849ef;border:1px solid #416c9c;border-radius:18px;padding:16px;line-height:1.8;font-size:13px}
 #tips.show{display:block}#tips img{float:right;width:86px;margin:0 0 10px 10px;border-radius:6px}
-a-scene{position:fixed !important;inset:0;z-index:1}
+/* FIX v0.4: AR.js places its camera <video> behind the page by default.
+   The opaque navy body background previously hid the live camera feed. */
+html{background:#000!important}
+body{background:transparent!important}
+/* Keep camera video visible below the transparent WebGL canvas. */
+video#arjs-video,video.arjs-video,body>video{z-index:0!important;visibility:visible!important;opacity:1!important}
+a-scene{position:fixed !important;inset:0;z-index:1!important;background:transparent!important}
+a-scene canvas.a-canvas{background:transparent!important}
 .a-enter-vr,.a-enter-ar{display:none!important}
 </style>
 </head>
