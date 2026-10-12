@@ -261,7 +261,7 @@ body.tracked #markerGuide{visibility:hidden}
 <div id="markerGuide" aria-hidden="true"><span>링 안에 마커 전체가 보이도록 비춰주세요</span></div>
 <video id="cameraPreview" autoplay muted playsinline webkit-playsinline disablepictureinpicture aria-hidden="true"></video>
 <div id="cameraDiag" aria-live="polite">카메라 진단 준비 중…</div>
-<a-scene mobile-ar-layout embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" renderer="alpha: true; antialias: true; colorManagement: true; precision: medium" arjs="sourceType: webcam; sourceWidth: 1920; sourceHeight: 1440; debugUIEnabled: false; detectionMode: color_and_matrix; patternRatio: 0.60; maxDetectionRate: 30;" loading-screen="enabled:false">
+<a-scene mobile-ar-layout embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" renderer="alpha: true; antialias: true; colorManagement: true; precision: medium" arjs="sourceType: webcam; sourceWidth: 1280; sourceHeight: 960; debugUIEnabled: false; detectionMode: color_and_matrix; patternRatio: 0.60; maxDetectionRate: 30;" loading-screen="enabled:false">
   <a-marker id="ringMarker" type="pattern" url="./assets/taesung.patt" emitevents="true" smooth="true" smoothCount="6" smoothTolerance="0.02" smoothThreshold="3">
     <!-- Marker-plane ring follows tracking independently of logo size and rise. -->
     <a-entity id="markerRecognitionRing" marker-ring-glow></a-entity>
@@ -291,7 +291,7 @@ body.tracked #markerGuide{visibility:hidden}
  const mount=$('#logoMount');
  let source=null,stream=null,starting=false,lastErr='',fit='cover',zoom=1.50;
  let stageW=0,stageH=0,projAspect=4/3,projectionRaw=0;
- let previewStarted=false,lastLayout='',qualityStatus='고해상도 카메라 준비 중',start=performance.now();
+ let previewStarted=false,lastLayout='',qualityStatus='실시간 AR 카메라 준비 중',start=performance.now();
  const upgradedTracks=new WeakSet();
 
  function arSource(){
@@ -304,23 +304,18 @@ body.tracked #markerGuide{visibility:hidden}
    if(!track||upgradedTracks.has(track))return;
    upgradedTracks.add(track);
    if(typeof track.applyConstraints!=='function'){qualityStatus='브라우저 기본 해상도';return;}
-   let caps={};try{caps=track.getCapabilities?.()||{};}catch(e){}
-   // Prefer the highest browser-exposed 4:3 stream to match AR calibration.
-   const ratio=4/3;
-   const maxW=Number(caps.width?.max)||1920;
-   const maxH=Number(caps.height?.max)||1440;
-   const width=Math.round(Math.min(maxW,maxH*ratio));
-   const height=Math.round(width/ratio);
    const previous=track.getConstraints?.()||{};
    try{
-     await track.applyConstraints({...previous,width:{ideal:width},height:{ideal:height},
-       aspectRatio:{ideal:ratio},frameRate:{ideal:30,max:30}});
-     qualityStatus='브라우저 지원 최고 해상도 요청';
+     // Cap camera pixels for realtime AR; never upgrade to the device maximum.
+     await track.applyConstraints({...previous,width:{ideal:1280,max:1280},
+       height:{ideal:960,max:960},aspectRatio:{ideal:4/3},
+       frameRate:{ideal:30,max:30}});
+     qualityStatus='실시간 AR · 최대 1280×960 / 30fps 요청';
    }catch(e){
-     // A failed negotiation leaves the current stream alive; try a softer HD request.
      try{
-       await track.applyConstraints({...previous,width:{ideal:1920},height:{ideal:1440}});
-       qualityStatus='고해상도 대체 설정';
+       await track.applyConstraints({...previous,width:{ideal:640,max:640},
+         height:{ideal:480,max:480},frameRate:{ideal:30,max:30}});
+       qualityStatus='실시간 AR · 최대 640×480 대체 설정';
      }catch(fallback){qualityStatus='현재 카메라 해상도 유지';}
    }
    lastLayout='';layout();report();
