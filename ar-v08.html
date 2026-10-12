@@ -45,6 +45,41 @@
     return new THREE.CanvasTexture(c);
   }
 
+
+  AFRAME.registerComponent('mobile-ar-layout', {
+    tick(){if(this.el.mobileLayout)this.el.mobileLayout();}
+  });
+
+  AFRAME.registerComponent('marker-ring-glow', {
+    init(){
+      const c=document.createElement('canvas');c.width=c.height=256;
+      const ctx=c.getContext('2d');
+      const g=ctx.createRadialGradient(128,128,0,128,128,128);
+      g.addColorStop(0,'rgba(67,183,255,0)');
+      g.addColorStop(.60,'rgba(67,183,255,0)');
+      g.addColorStop(.70,'rgba(67,183,255,.22)');
+      g.addColorStop(.735,'rgba(155,235,255,.85)');
+      g.addColorStop(.78,'rgba(67,183,255,.25)');
+      g.addColorStop(1,'rgba(67,183,255,0)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,256,256);
+      this.texture=new THREE.CanvasTexture(c);
+      this.material=new THREE.MeshBasicMaterial({map:this.texture,transparent:true,
+        opacity:.85,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending});
+      this.geometry=new THREE.PlaneGeometry(1.90,1.90);
+      this.mesh=new THREE.Mesh(this.geometry,this.material);
+      this.mesh.rotation.x=-Math.PI/2;this.mesh.position.y=.018;
+      this.el.object3D.add(this.mesh);
+      this.reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    },
+    tick(t){
+      this.material.opacity=this.reducedMotion?.85:.75+.15*Math.sin(t*.002);
+    },
+    remove(){
+      this.el.object3D.remove(this.mesh);
+      this.geometry.dispose();this.material.dispose();this.texture.dispose();
+    }
+  });
+
   AFRAME.registerComponent('taesung-hologram', {
     init(){
       this.found=false;this.ready=false;this.seconds=0;this.bound=false;
@@ -139,7 +174,7 @@
       if(this.spin){this.spin.rotation.set(0,-.22,0);this.spin.position.set(0,0,0);}
       document.body.classList.add('tracked');
       const state=document.getElementById('state');
-      if(state)state.textContent='마커 인식 성공 · 태성 로고 등장!';
+      if(state)state.textContent='역사와 전통에 빛나는 태성';
     },
     tick(_t,dt){
       if(!this.found || !this.ready || !this.spin)return;
@@ -179,87 +214,60 @@
 })();
 </script>
 <style>
-*{box-sizing:border-box}html,body{padding:0;margin:0;height:100%;overflow:hidden;background:transparent;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}
-#hud{position:fixed;top:0;left:0;right:0;z-index:99999;padding:calc(12px + env(safe-area-inset-top)) 16px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,12,28,.91),rgba(3,13,28,.65) 72%,transparent);pointer-events:none}
-#hud>*{pointer-events:auto}a.back{font-size:13px;font-weight:800;text-decoration:none;color:#e8f5ff;border:1px solid #43648b;border-radius:25px;padding:10px 13px;background:#102a4b}
-#hud .brand{font-size:14px;font-weight:800;letter-spacing:.03em}#infoBtn{color:#fff;background:#0b305a;border:1px solid #487cb9;border-radius:30px;padding:9px 13px;font-weight:700}
-#statusBar{position:fixed;bottom:calc(26px + env(safe-area-inset-bottom));left:12px;right:12px;z-index:99999;text-align:center;pointer-events:none}
-#statusBar .pill{display:inline-block;border:1px solid rgba(120,175,238,.40);background:rgba(6,22,42,.89);border-radius:40px;max-width:98%;padding:13px 17px;font-weight:700;font-size:13px;line-height:1.45}
-#statusBar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffb547;margin-right:6px}body.tracked #statusBar .dot{background:#4bd99f}
-#tips{display:none;position:fixed;left:12px;right:12px;top:calc(78px + env(safe-area-inset-top));z-index:99999;background:#092849ef;border:1px solid #416c9c;border-radius:18px;padding:16px;line-height:1.8;font-size:13px}
-#tips.show{display:block}#tips img{float:right;width:86px;margin:0 0 10px 10px;border-radius:6px}
-/* FIX v0.4: AR.js places its camera <video> behind the page by default.
-   The opaque navy body background previously hid the live camera feed. */
-html{background:#000!important}
-body{background:transparent!important}
-/* Keep camera video visible below the transparent WebGL canvas. */
-video#arjs-video,video.arjs-video,body>video{z-index:0!important;visibility:visible!important;opacity:1!important}
-a-scene{position:fixed !important;inset:0;z-index:1!important;background:transparent!important}
-a-scene canvas.a-canvas{background:transparent!important}
-.a-enter-vr,.a-enter-ar{display:none!important}
 
-/* v0.5: camera preview is explicitly layered behind transparent A-Frame WebGL.
-   This fixes devices which place AR.js's own video behind an opaque page. */
-html, body { background:#000 !important; }
-#cameraPreview {
-  position:fixed !important; inset:0 !important; width:100vw !important; height:100dvh !important;
-  object-fit:cover; background:#000; z-index:0 !important; pointer-events:none;
-  display:block !important; opacity:1 !important; transform:translateZ(0);
-}
-/* Fall back to the AR.js-owned video until our mirrored preview is playing. */
-video#arjs-video,video.arjs-video{z-index:0!important;visibility:visible!important;}
-body.preview-ready video#arjs-video,body.preview-ready video.arjs-video{opacity:0!important;pointer-events:none!important;}
-a-scene { z-index:1 !important; background:transparent !important; }
-a-scene canvas.a-canvas {background:transparent!important;opacity:1!important;}
-#cameraDiag{display:none;position:fixed;top:calc(77px + env(safe-area-inset-top));left:12px;right:12px;z-index:999999;
-  border:1px solid #62a3ea;border-radius:16px;background:rgba(3,20,40,.95);color:#e8f4ff;padding:13px;
-  font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;}
+*{box-sizing:border-box}
+html,body{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;min-width:0!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#000!important;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{--hud-bottom:110px}
+#hud{position:fixed;top:0;left:0;right:0;z-index:99999;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px 12px;padding:calc(8px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 12px max(10px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,#020c1ceF,#030d1cd9 85%,transparent);pointer-events:none}
+#hud>*{pointer-events:auto}
+a.back{font-size:12px;font-weight:800;text-decoration:none;color:#e8f5ff;border:1px solid #43648b;border-radius:25px;padding:8px 12px;background:#102a4b;white-space:nowrap}
+#hud .brand{min-width:0;text-align:right;font-size:clamp(11px,3.3vw,14px);font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.hudActions{grid-column:1/-1;display:grid;grid-template-columns:.9fr 1.35fr .8fr 1.25fr;gap:6px;min-width:0}
+#hud button{min-width:0;width:100%;min-height:38px;padding:7px 4px;white-space:nowrap;font-size:clamp(11px,3vw,13px);font-weight:700;color:#fff;background:#0b305a;border:1px solid #487cb9;border-radius:22px;cursor:pointer}
+#hud #replayBtn{background:#155891;border-color:#6bafef}
+#hud #fitBtn{background:#205885;border-color:#65a1de}
+#hud button:focus-visible,a.back:focus-visible,#sizeTools button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+#statusBar{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom,0px));left:12px;right:12px;z-index:99999;text-align:center;pointer-events:none}
+#statusBar .pill{display:inline-block;border:1px solid #78afee66;background:#06162ae3;border-radius:28px;max-width:100%;padding:11px 14px;font-weight:700;font-size:13px;line-height:1.5}
+#statusBar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffb547;margin-right:6px}
+body.tracked #statusBar .dot{display:none}
+body.tracked #statusBar .pill{color:#e0f6ff;border-color:#87dfff80;font-size:clamp(14px,4.3vw,20px);text-shadow:0 0 12px #59bcff,0 0 24px #328ad9;box-shadow:0 0 20px #4fbfff22}
+#sizeTools{position:fixed;z-index:99999;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;padding:6px 10px;border-radius:40px;background:#041427d9;border:1px solid #41698a;white-space:nowrap}
+#sizeTools button{width:40px;height:38px;border-radius:100px;border:1px solid #6baae0;background:#164775;color:white;font-size:22px;font-weight:700;cursor:pointer}
+#sizeTools small{font-size:12px;color:#c6e6ff}
+#tips,#cameraDiag{position:fixed;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));top:calc(var(--hud-bottom) + 4px);z-index:999999;background:#092849f2;border:1px solid #416c9c;border-radius:16px;padding:14px;max-height:calc(100% - var(--hud-bottom) - 155px);overflow-y:auto}
+#tips{display:none;line-height:1.8;font-size:13px}
+#tips.show{display:block}
+#tips img{float:right;width:78px;margin:0 0 10px 10px;border-radius:6px}
+#cameraDiag{display:none;color:#e8f4ff;font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word}
 #cameraDiag.open{display:block}
-#diagBtn{color:#fff;background:#143957;border:1px solid #487cb9;border-radius:30px;padding:9px 10px;font-weight:700;font-size:12px}
-
-
-/* v0.6 — aspect-safe AR.js compositor.
-   A WebGL canvas can be displayed at full portrait aspect although its projection
-   matrix was calibrated for a landscape image; stretching distorts a wide logo.
-   Set both the camera preview AND overlay canvas into the same measured stage. */
-#fitBtn{color:#fff;background:#205885;border:1px solid #65a1de;border-radius:22px;padding:9px 10px;font-size:12px;font-weight:700}
-#cameraPreview{object-fit:cover!important;border:0;margin:0!important;transform:none!important;}
-a-scene{overflow:hidden!important; width:100vw!important; height:100dvh!important;}
-a-scene canvas.a-canvas{position:absolute!important;max-width:none!important;max-height:none!important;transform:none!important;object-fit:fill!important;}
-#sizeTools{position:fixed;z-index:99999;bottom:calc(84px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;padding:6px 9px;border-radius:40px;background:rgba(4,20,39,.85);border:1px solid #41698a;white-space:nowrap}
-#sizeTools button{width:33px;height:31px;line-height:26px;border-radius:100px;border:1px solid #6baae0;background:#164775;color:white;font-size:20px;font-weight:700;cursor:pointer}
-#sizeTools small{font-size:11px;color:#c6e6ff}
-#sizeTools button:focus-visible,#fitBtn:focus-visible{outline:2px solid white;outline-offset:2px}
-#cameraDiag{max-height:55dvh;overflow-y:auto}
-@media(max-width:400px){#hud{padding-left:8px;padding-right:8px}#hud .brand{font-size:11px}#hud button{font-size:11px}}
-/* v0.8 mobile controls: scrollable header, readable buttons at narrow widths. */
-#hud{overflow-x:auto;white-space:nowrap;gap:8px;min-height:62px;scrollbar-width:none;}
-#hud::-webkit-scrollbar{display:none}
-#hud .brand{font-size:12px;flex-shrink:0}
-#hud button{flex-shrink:0;min-height:32px}
-#replayBtn{color:#fff;background:#155891;border:1px solid #6bafef;border-radius:24px;padding:8px 10px;font-size:12px;font-weight:800;cursor:pointer}
-#tips{top:calc(72px + env(safe-area-inset-top));}
-/* Marker acquisition guide stays above the camera and below controls. */
-#markerGuide{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:min(54vw,220px,40dvh);aspect-ratio:1;border:2px dashed #8bdcff;border-radius:50%;box-shadow:0 0 18px #58caff55,inset 0 0 18px #58caff22;pointer-events:none;display:grid;place-items:center}
+#cameraPreview{position:fixed!important;inset:auto!important;border:0!important;margin:0!important;max-width:none!important;max-height:none!important;object-fit:cover;object-position:center;background:#000;z-index:0!important;pointer-events:none;display:block!important;opacity:1!important;transform:none!important}
+video#arjs-video,video.arjs-video{z-index:0!important;visibility:visible!important;opacity:1!important;pointer-events:none!important}
+body.preview-ready video#arjs-video,body.preview-ready video.arjs-video{opacity:0!important}
+a-scene{position:fixed!important;inset:0!important;margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:hidden!important;z-index:1!important;background:transparent!important}
+a-scene canvas.a-canvas{position:absolute!important;max-width:none!important;max-height:none!important;background:transparent!important;transform:none!important;object-fit:fill!important}
+.a-enter-vr,.a-enter-ar{display:none!important}
+#markerGuide{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:54vw;max-width:220px;height:54vw;max-height:220px;border:2px dashed #8bdcff;border-radius:50%;box-shadow:0 0 18px #58caff55,inset 0 0 18px #58caff22;pointer-events:none;display:grid;place-items:center}
 #markerGuide span{position:absolute;top:calc(100% + 12px);width:260px;max-width:85vw;text-align:center;font-size:12px;color:#e6f6ff;text-shadow:0 1px 4px #000;background:#06203bcc;border-radius:18px;padding:7px 10px}
 body.tracked #markerGuide{visibility:hidden}
+@media(orientation:landscape) and (max-height:500px){#hud{left:0;right:auto;width:min(100%,560px);gap:4px 10px;padding-top:calc(4px + env(safe-area-inset-top,0px))}#hud button{min-height:30px}#statusBar{bottom:calc(70px + env(safe-area-inset-bottom,0px))}#statusBar .pill{padding:6px 12px}#sizeTools{bottom:calc(10px + env(safe-area-inset-bottom,0px))}#markerGuide{width:28vh;height:28vh}}
 </style>
 </head>
 <body>
-<div id="hud"><a class="back" href="./index.html">← 안내</a><div class="brand">TAESUNG · AR RING <span style="color:#8ccaff;font-size:11px">v0.8</span></div><div style="display:flex;gap:6px"><button id="replayBtn" type="button" aria-label="AR 애니메이션 다시 재생">↻ 재생</button><button id="fitBtn" type="button">화면: 채움</button><button id="diagBtn" type="button">진단</button><button id="infoBtn" type="button">사용 방법</button></div></div>
+<div id="hud"><a class="back" href="./index.html">← 안내</a><div class="brand">TAESUNG · AR RING <span style="color:#8ccaff;font-size:11px">v0.8</span></div><div class="hudActions"><button id="replayBtn" type="button" aria-label="AR 애니메이션 다시 재생">↻ 재생</button><button id="fitBtn" type="button">화면: 채움</button><button id="diagBtn" type="button">진단</button><button id="infoBtn" type="button">사용 방법</button></div></div>
 <div id="tips"><img src="./assets/taesung-marker.png" alt="태성 로고 마커"/><strong>인식이 잘 안 된다면</strong><div>① 조명 밝은 곳에서 흰색 여백과 검정 테두리 전체가 보이게 촬영<br>② 먼저 출력한 80mm 카드로 시험<br>③ 15–25cm 간격에서 천천히 움직이기<br>④ 카메라를 가린 손가락을 치우기<br>⑤ 브라우저 카메라 권한 허용</div></div>
 <div id="statusBar"><span class="pill"><span class="dot"></span><span id="state">AR 엔진 시작 중…</span></span></div>
-<div id="sizeTools"><button type="button" id="smaller" aria-label="로고 축소">−</button><small id="sizeIndicator">로고 130%</small><button type="button" id="larger" aria-label="로고 확대">+</button></div>
+<div id="sizeTools"><button type="button" id="smaller" aria-label="로고 축소">−</button><small id="sizeIndicator">로고 150%</small><button type="button" id="larger" aria-label="로고 확대">+</button></div>
 <div id="markerGuide" aria-hidden="true"><span>링 안에 마커 전체가 보이도록 비춰주세요</span></div>
 <video id="cameraPreview" autoplay muted playsinline webkit-playsinline disablepictureinpicture aria-hidden="true"></video>
 <div id="cameraDiag" aria-live="polite">카메라 진단 준비 중…</div>
-<a-scene embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" renderer="alpha: true; antialias: true; colorManagement: true; precision: medium" arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: color_and_matrix; patternRatio: 0.60; maxDetectionRate: 30;" loading-screen="enabled:false">
+<a-scene mobile-ar-layout embedded vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" renderer="alpha: true; antialias: true; colorManagement: true; precision: medium" arjs="sourceType: webcam; sourceWidth: 1920; sourceHeight: 1440; debugUIEnabled: false; detectionMode: color_and_matrix; patternRatio: 0.60; maxDetectionRate: 30;" loading-screen="enabled:false">
   <a-marker id="ringMarker" type="pattern" url="./assets/taesung.patt" emitevents="true" smooth="true" smoothCount="6" smoothTolerance="0.02" smoothThreshold="3">
     <!-- Marker-plane ring follows tracking independently of logo size and rise. -->
-    <a-ring id="markerRecognitionRing" position="0 0.015 0" rotation="-90 0 0" radius-inner="0.67" radius-outer="0.70" material="shader: flat; color: #79dcff; opacity: 0.85; transparent: true; side: double; depthWrite: false"></a-ring>
+    <a-entity id="markerRecognitionRing" marker-ring-glow></a-entity>
     <a-entity id="billboard" position="0 0 0" ar-billboard>
       <!-- One outer wrapper controls logo size without fighting the animation in ar.js -->
-      <a-entity id="logoMount" position="0 0 0" scale="1.30 1.30 1.30">
+      <a-entity id="logoMount" position="0 0 0" scale="1.50 1.50 1.50">
         <a-entity id="holoRoot" taesung-hologram>
           <a-entity id="logoSpin"><a-entity id="logo" logo-geometry></a-entity></a-entity>
         </a-entity>
@@ -281,22 +289,50 @@ body.tracked #markerGuide{visibility:hidden}
  const diag=$('#cameraDiag');
  const fitBtn=$('#fitBtn');
  const mount=$('#logoMount');
- let source=null,stream=null,starting=false,lastErr='',fit='cover',zoom=1.30;
+ let source=null,stream=null,starting=false,lastErr='',fit='cover',zoom=1.50;
  let stageW=0,stageH=0,projAspect=4/3,projectionRaw=0;
- let previewStarted=false,lastLayout='',start=performance.now();
+ let previewStarted=false,lastLayout='',qualityStatus='고해상도 카메라 준비 중',start=performance.now();
+ const upgradedTracks=new WeakSet();
 
  function arSource(){
    const named=document.querySelector('#arjs-video');
    if(named?.tagName==='VIDEO')return named;
    return [...document.querySelectorAll('video')].find(v=>v!==preview&&v.srcObject)||null;
  }
+ async function upgradeCamera(media){
+   const track=media.getVideoTracks?.()[0];
+   if(!track||upgradedTracks.has(track))return;
+   upgradedTracks.add(track);
+   if(typeof track.applyConstraints!=='function'){qualityStatus='브라우저 기본 해상도';return;}
+   let caps={};try{caps=track.getCapabilities?.()||{};}catch(e){}
+   // Prefer the highest browser-exposed 4:3 stream to match AR calibration.
+   const ratio=4/3;
+   const maxW=Number(caps.width?.max)||1920;
+   const maxH=Number(caps.height?.max)||1440;
+   const width=Math.round(Math.min(maxW,maxH*ratio));
+   const height=Math.round(width/ratio);
+   const previous=track.getConstraints?.()||{};
+   try{
+     await track.applyConstraints({...previous,width:{ideal:width},height:{ideal:height},
+       aspectRatio:{ideal:ratio},frameRate:{ideal:30,max:30}});
+     qualityStatus='브라우저 지원 최고 해상도 요청';
+   }catch(e){
+     // A failed negotiation leaves the current stream alive; try a softer HD request.
+     try{
+       await track.applyConstraints({...previous,width:{ideal:1920},height:{ideal:1440}});
+       qualityStatus='고해상도 대체 설정';
+     }catch(fallback){qualityStatus='현재 카메라 해상도 유지';}
+   }
+   lastLayout='';layout();report();
+ }
  async function reuseCamera(){
    if(starting) return;
    const found=arSource();if(!found)return;
-   source=found;
+   if(source!==found){source=found;found.addEventListener('resize',layout);found.addEventListener('loadedmetadata',layout);}
    if(found.srcObject && found.srcObject!==stream){
      starting=true;
      try{
+       upgradeCamera(found.srcObject);
        preview.srcObject=found.srcObject;
        await preview.play();
        stream=found.srcObject;
@@ -305,8 +341,10 @@ body.tracked #markerGuide{visibility:hidden}
    }
  }
  function aspectFromProjection(){
+   const context=scene?.systems?.arjs?._arSession?.arContext;
+   // Ignore A-Frame's temporary viewport camera until marker calibration is ready.
    const camera=scene?.camera;
-   const p=camera?.projectionMatrix?.elements;
+   const p=context?.arController ? (context.getProjectionMatrix?.()?.elements||camera?.projectionMatrix?.elements) : null;
    if(p && Number.isFinite(p[0]) && Number.isFinite(p[5]) && Math.abs(p[0])>0.001){
      const r=Math.abs(p[5]/p[0]);
      if(r>.4&&r<2.4){projectionRaw=r;return r;}
@@ -318,32 +356,39 @@ body.tracked #markerGuide{visibility:hidden}
  }
  function layout(){
    if(!scene||!preview)return;
-   const vw=window.innerWidth,vh=window.innerHeight;
+   const vw=document.documentElement.clientWidth||window.innerWidth;
+   const vh=document.documentElement.clientHeight||window.innerHeight;
    const canvas=scene.canvas||scene.querySelector('canvas.a-canvas');
+   const hud=$('#hud');
+   if(hud)document.body.style.setProperty('--hud-bottom',Math.ceil(hud.getBoundingClientRect().bottom)+'px');
    projAspect=aspectFromProjection();
    if(!canvas)return;
    const ratio=projAspect;
-   // Letterbox for full-view mode; crop symmetrically for fill mode.
-   stageH = fit==='cover' ? Math.max(vh,vw/ratio) : Math.min(vh,vw/ratio);
-   stageW = stageH * ratio;
+   stageH=fit==='cover'?Math.max(vh,vw/ratio):Math.min(vh,vw/ratio);
+   stageW=stageH*ratio;
    const x=(vw-stageW)/2,y=(vh-stageH)/2;
-   const key=[vw,vh,fit,ratio.toFixed(3),canvas.width,canvas.height].join(':');
-   if(key!==lastLayout){
-     // Respect the natural optics ratio rather than stretching AR.js's 640x480 projection across a 9:20 viewport.
-     const styles={position:'absolute',width:stageW+'px',height:stageH+'px',left:x+'px',top:y+'px',right:'auto',bottom:'auto',maxWidth:'none',maxHeight:'none',margin:'0',transform:'none',background:'transparent'};
-     for(const [k,v]of Object.entries(styles))canvas.style.setProperty(k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase()),v,'important');
-     preview.style.setProperty('width',stageW+'px','important');
-     preview.style.setProperty('height',stageH+'px','important');
-     preview.style.setProperty('left',x+'px','important');
-     preview.style.setProperty('top',y+'px','important');
-     // Both media elements are optically fitted in an identical outer rectangle.
-     preview.style.setProperty('object-fit','cover','important');
-     lastLayout=key;
+   const styles={position:'absolute',width:stageW+'px',height:stageH+'px',
+     left:x+'px',top:y+'px',right:'auto',bottom:'auto',maxWidth:'none',maxHeight:'none',
+     margin:'0px',marginLeft:'0px',marginTop:'0px',marginRight:'0px',marginBottom:'0px',
+     transform:'none',background:'transparent'};
+   // AR.js rewrites canvas/source margins on every resize. Reassert the shared
+   // centered rectangle after AR system ticks, even when its dimensions are unchanged.
+   for(const element of [canvas,preview,source]){
+     if(!element)continue;
+     for(const [k,v] of Object.entries(styles)){
+       const name=k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase());
+       const value=k==='position'&&element!==canvas?'fixed':v;
+       if(element.style.getPropertyValue(name)!==value||element.style.getPropertyPriority(name)!=='important')
+         element.style.setProperty(name,value,'important');
+     }
    }
+   preview.style.setProperty('object-fit','cover','important');
+   lastLayout=[vw,vh,fit,ratio.toFixed(3)].join(':');
    if(scene.renderer){
      try{scene.renderer.setClearColor(0x000000,0);scene.renderer.setClearAlpha(0);scene.object3D.background=null;}catch(e){lastErr='renderer: '+e.message;}
    }
  }
+ scene.mobileLayout=layout;
  function updateZoom(){
    if(mount?.object3D?.scale){const s=zoom;mount.object3D.scale.setScalar(s);}
    $('#sizeIndicator').textContent='로고 '+Math.round(zoom*100)+'%';
@@ -351,10 +396,13 @@ body.tracked #markerGuide{visibility:hidden}
  function report(){
    if(!diag)return;
    const c=scene?.canvas; const v=source;
+   const settings=stream?.getVideoTracks?.()[0]?.getSettings?.()||{};
    diag.textContent=
       '태성고 AR v0.8 · 3D 애니메이션 진단\n'+
       '브라우저 화면: '+innerWidth+'×'+innerHeight+'\n'+
       '카메라 원본: '+(v?.videoWidth||0)+'×'+(v?.videoHeight||0)+'\n'+
+      '카메라 설정: '+qualityStatus+'\n'+
+      '실제 촬영: '+(settings.width||0)+'×'+(settings.height||0)+' / '+(settings.frameRate||0)+'fps'+'\n'+
       '미리보기: '+preview.videoWidth+'×'+preview.videoHeight+' / '+(preview.paused?'정지':'재생')+'\n'+
       '3D 캔버스 원본: '+(c?.width||0)+'×'+(c?.height||0)+'\n'+
       '카메라 투영 비율: '+projAspect.toFixed(3)+'\n'+
@@ -378,14 +426,19 @@ body.tracked #markerGuide{visibility:hidden}
    lastLayout='';layout();report();
  });
  $('#smaller').addEventListener('click',()=>{zoom=Math.max(.30,Math.round((zoom-.10)*100)/100);updateZoom();report();});
- $('#larger').addEventListener('click',()=>{zoom=Math.min(1.30,Math.round((zoom+.10)*100)/100);updateZoom();report();});
+ $('#larger').addEventListener('click',()=>{zoom=Math.min(2.00,Math.round((zoom+.10)*100)/100);updateZoom();report();});
  $('#diagBtn').addEventListener('click',()=>{diag.classList.toggle('open');report();});
  window.addEventListener('resize',()=>{lastLayout='';layout();});
- window.addEventListener('orientationchange',()=>{lastLayout='';});
+ window.addEventListener('orientationchange',()=>{lastLayout='';setTimeout(layout,250);});
+ window.visualViewport?.addEventListener('resize',layout);
  scene?.addEventListener('loaded',()=>{lastLayout='';layout();});
  scene?.addEventListener('renderstart',()=>{lastLayout='';layout();});
+ preview.addEventListener('resize',()=>{lastLayout='';layout();});
  preview.addEventListener('playing',()=>{lastLayout='';layout();});
  preview.addEventListener('error',()=>{lastErr=preview.error?.message||'camera error';report();});
+ document.addEventListener('pointerdown',()=>{
+   if(preview.paused&&preview.srcObject)preview.play().catch(()=>{});
+ },{passive:true});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden){lastLayout='';preview.play().catch(()=>{});}});
  setInterval(tick,500);tick();
 })();
