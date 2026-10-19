@@ -1,0 +1,1575 @@
+{
+  "generatedAt": "2026-10-19T02:05:03.698Z",
+  "patternEncoding": [
+    {
+      "id": "A-color",
+      "values": 3072,
+      "encoder": "AR.js official 3.4.7, BGR, 4 orientations, 16x16"
+    },
+    {
+      "id": "B-mono",
+      "values": 3072,
+      "encoder": "AR.js official 3.4.7, BGR, 4 orientations, 16x16"
+    },
+    {
+      "id": "C-bold",
+      "values": 3072,
+      "encoder": "AR.js official 3.4.7, BGR, 4 orientations, 16x16"
+    },
+    {
+      "id": "D-border50",
+      "values": 3072,
+      "encoder": "AR.js official 3.4.7, BGR, 4 orientations, 16x16"
+    }
+  ],
+  "runtime": [
+    {
+      "page": "/ar-test-A-color.html",
+      "ratio": 0.6,
+      "canvas": [
+        1280,
+        960
+      ],
+      "markerSize": "0.008",
+      "logo": true
+    },
+    {
+      "page": "/ar-test-B-mono.html",
+      "ratio": 0.6,
+      "canvas": [
+        1280,
+        960
+      ],
+      "markerSize": "0.008",
+      "logo": true
+    },
+    {
+      "page": "/ar-test-C-bold.html",
+      "ratio": 0.6,
+      "canvas": [
+        1280,
+        960
+      ],
+      "markerSize": "0.008",
+      "logo": true
+    },
+    {
+      "page": "/ar-test-D-border50.html",
+      "ratio": 0.5,
+      "canvas": [
+        1280,
+        960
+      ],
+      "markerSize": "0.008",
+      "logo": true
+    }
+  ],
+  "synthetic": [
+    {
+      "id": "A-color",
+      "cases": [
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9793838299994796,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9296266236680358,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9042752883077859,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9675923126821866,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9716558623796727,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.898598093305548,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9065820102331915,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9696369622969848,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9268841352446846,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8143049622397922,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8481082100093592,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9222617241592025,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8536383553084254,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8354217240798064,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8047398653637882,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.879589900409357,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8480466204381755,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7218459962506387,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.676521962355286,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7955625347131441,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6382225804031875,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.5130189461350053,
+              "dir": 1
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6441256227117269,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7484692399618199,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6988010270196617,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6275980821208622,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6572976247971775,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6901307034803086,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "negative": "blank white",
+          "found": []
+        }
+      ]
+    },
+    {
+      "id": "B-mono",
+      "cases": [
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9788337753782856,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9350724658732784,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9103035908273747,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9681191252381074,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9739469941091995,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9033836224074399,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9063536503558326,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9704927361975904,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9340520198700906,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8182804485454327,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8487851616640414,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9312897728581395,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8656309067960475,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8418705888373094,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8144117752201188,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8882414548630649,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8653457479268718,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7458509688896177,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6945930689803688,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8087361304871019,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6791967266344034,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.5615747202286125,
+              "dir": 1
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6756404292564651,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7692443094275454,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6859289597736962,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6445064037209692,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6676969191771446,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6739766047310435,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "negative": "blank white",
+          "found": []
+        }
+      ]
+    },
+    {
+      "id": "C-bold",
+      "cases": [
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9757528402226666,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8702445105728778,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8684194906276214,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9798688928775678,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9713787573736666,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.881678042792764,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8637104763157148,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9782275431793035,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9473370734013498,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8326702638514961,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8108324689307268,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9321970175266142,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9543620730343614,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8748513283172255,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8400707823768412,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9277177067584366,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8443429335585104,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6368287197236818,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6989108653449209,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8679927242304252,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7634455953939815,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.638874257938778,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.684150542193459,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7782311964103344,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8015630307868274,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6506470749377584,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.646921039972207,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7474186483909036,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "negative": "blank white",
+          "found": []
+        }
+      ]
+    },
+    {
+      "id": "D-border50",
+      "cases": [
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9776556679172459,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9137965573492496,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9257750466476277,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 240,
+          "blackPixels": 192,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9786611910595636,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9670158886086591,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9126797538706906,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9127414807888468,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 120,
+          "blackPixels": 96,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9628838752882674,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9444268253436784,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8691319050990494,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8766012871784243,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 80,
+          "blackPixels": 64,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9223889218820701,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8960027839545843,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8448412584380429,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.7950463544929885,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 60,
+          "blackPixels": 48,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8822021987576015,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.905368157855385,
+              "dir": 2
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8698183211589952,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.8698183211589952,
+              "dir": 0
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 40,
+          "blackPixels": 32,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.9061874976772788,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.5717182237873757,
+              "dir": 2
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 90,
+          "found": [
+            {
+              "id": -1,
+              "confidence": 0.46402013666795694,
+              "dir": 1
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.5409505008594131,
+              "dir": 0
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 30,
+          "blackPixels": 24,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6012614586959991,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 0,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.5927391372174013,
+              "dir": 2
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 90,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6010261496293826,
+              "dir": 1
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 180,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.5426391471030106,
+              "dir": 0
+            }
+          ],
+          "accepted": false
+        },
+        {
+          "sidePixels": 20,
+          "blackPixels": 16,
+          "rotation": 270,
+          "found": [
+            {
+              "id": 0,
+              "confidence": 0.6162617503279977,
+              "dir": 3
+            }
+          ],
+          "accepted": true
+        },
+        {
+          "negative": "blank white",
+          "found": []
+        }
+      ]
+    }
+  ],
+  "limitations": "Digital frontal images only; not a physical 10mm ring/camera/print test.",
+  "alternate": {
+    "canvas": [
+      640,
+      480
+    ],
+    "size": "0.024"
+  },
+  "csvTrial": {
+    "passed": true,
+    "sampleType": "fake camera, not physical performance"
+  },
+  "browserErrors": [],
+  "missingResources": []
+}
