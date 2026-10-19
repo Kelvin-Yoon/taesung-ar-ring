@@ -1,0 +1,38 @@
+[
+  {
+    "id": "A-color",
+    "ratio": 0.6,
+    "stickerMM": 10,
+    "blackSquareMM": 8,
+    "innerMM": 4.8,
+    "borderMM": 1.6,
+    "quietMarginMM": 1
+  },
+  {
+    "id": "B-mono",
+    "ratio": 0.6,
+    "stickerMM": 10,
+    "blackSquareMM": 8,
+    "innerMM": 4.8,
+    "borderMM": 1.6,
+    "quietMarginMM": 1
+  },
+  {
+    "id": "C-bold",
+    "ratio": 0.6,
+    "stickerMM": 10,
+    "blackSquareMM": 8,
+    "innerMM": 4.8,
+    "borderMM": 1.6,
+    "quietMarginMM": 1
+  },
+  {
+    "id": "D-border50",
+    "ratio": 0.5,
+    "stickerMM": 10,
+    "blackSquareMM": 8,
+    "innerMM": 4.0,
+    "borderMM": 2.0,
+    "quietMarginMM": 1
+  }
+]

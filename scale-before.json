@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "id": "B-mono",
+      "mm": 10,
+      "declaredSize": 0.008,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 0.01847762452555067,
+      "projectedWidthPixels": 1.9918940768347757,
+      "projectedDepth": [
+        0.999980031112296,
+        0.99998004044045
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        0.011999999784585009,
+        0.012000000199583086,
+        0.011999999970773246
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    }
+  ],
+  "errors": [],
+  "scope": "Synthetic image through the real AR.js tracker and rendered 3D scene. Physical ring recognition remains untested."
+}

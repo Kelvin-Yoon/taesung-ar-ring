@@ -1,0 +1,222 @@
+{
+  "cases": [
+    {
+      "id": "A-color",
+      "mm": 10,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.308856681641179,
+      "projectedWidthPixels": 257.94650740559393,
+      "projectedDepth": [
+        0.999979270053733,
+        0.99998047258141
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999731072577,
+        1.5000000249476284,
+        1.4999999963127817
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "A-color",
+      "mm": 30,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.308997666800277,
+      "projectedWidthPixels": 257.9425462302955,
+      "projectedDepth": [
+        0.9999792716530879,
+        0.9999804711629022
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.499999973101632,
+        1.50000002494767,
+        1.4999999963183657
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "B-mono",
+      "mm": 10,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.3094724041719115,
+      "projectedWidthPixels": 257.92805996188423,
+      "projectedDepth": [
+        0.9999792771302507,
+        0.9999804663026951
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999730825158,
+        1.5000000249478138,
+        1.4999999963373383
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "B-mono",
+      "mm": 30,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.3089806341497816,
+      "projectedWidthPixels": 257.9430328595924,
+      "projectedDepth": [
+        0.9999792714592224,
+        0.9999804713348628
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999731023128,
+        1.5000000249476646,
+        1.4999999963176898
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "C-bold",
+      "mm": 10,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.3093601015554235,
+      "projectedWidthPixels": 257.93165103370586,
+      "projectedDepth": [
+        0.9999792758214674,
+        0.9999804674643898
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999730870628,
+        1.5000000249477792,
+        1.4999999963328257
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "C-bold",
+      "mm": 30,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.309637473928487,
+      "projectedWidthPixels": 257.922590173147,
+      "projectedDepth": [
+        0.9999792790692801,
+        0.9999804645811974
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999730758034,
+        1.500000024947865,
+        1.4999999963439994
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "D-border50",
+      "mm": 10,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.310151246492243,
+      "projectedWidthPixels": 257.90403978286463,
+      "projectedDepth": [
+        0.9999792852263962,
+        0.9999804591117448
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999730546791,
+        1.500000024948031,
+        1.499999996364958
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    },
+    {
+      "id": "D-border50",
+      "mm": 30,
+      "declaredSize": 1,
+      "effectiveSize": 1,
+      "trackedWidths": [
+        1
+      ],
+      "worldWidth": 2.3096045845872624,
+      "projectedWidthPixels": 257.92369842616444,
+      "projectedDepth": [
+        0.9999792786814655,
+        0.9999804649255414
+      ],
+      "visible": true,
+      "position": [
+        -0.062046408653258056,
+        -0.03616925328969956,
+        -9.919136047363281
+      ],
+      "worldScale": [
+        1.4999999730771432,
+        1.500000024947855,
+        1.4999999963426693
+      ],
+      "screenshot": "Synthetic marker rendered from a canvas; no real camera image."
+    }
+  ],
+  "errors": [],
+  "scope": "Synthetic image through the real AR.js tracker and rendered 3D scene. Physical ring recognition remains untested."
+}
